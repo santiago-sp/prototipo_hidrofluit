@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-bg: #F4F6F8;
+  --color-bg-card: #FFFFFF;
+  --color-bg-footer: #E5E9F0;
+  --color-primary: #004A8C; /* Azul oscuro (texto hidrofluid) */
+  --color-accent: #41A4FF; /* Azul claro */
+  --color-highlight: #1E71B8; /* Azul medio */
+  --color-white: #FFFFFF;
+  --color-gray: #9AA3AE;
+  --color-border: rgba(0, 74, 140, 0.1);
+  --color-whatsapp: #25D366;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans antialiased text-gray bg-bg;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply text-primary;
+}
+
+h1, h2 {
+  @apply font-extrabold;
+}
+
+h3, h4 {
+  @apply font-semibold;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.33); opacity: 1; }
+  80%, 100% { transform: scale(1.5); opacity: 0; }
+}
+
+.whatsapp-pulse::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #25D366;
+  border-radius: 50%;
+  z-index: -1;
+  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}

@@ -2,7 +2,7 @@ import fs from 'fs';
 
 let app = fs.readFileSync('src/App.tsx', 'utf8');
 
-// 1. In the Navbar, we want text to switch color based on scrolled (so it is white on transparent, and primary on white bg)
+// 1. In the Navbar, we want text to switch color based on scrolled (so it is white on transparent, and primary on white bg)awdw
 app = app.replace(
   'text-[20px] font-extrabold tracking-tight text-white block',
   'text-[20px] font-extrabold tracking-tight ${scrolled ? "text-primary" : "text-white"} block'

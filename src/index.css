@@ -7,11 +7,11 @@
   --color-bg: #F4F6F8;
   --color-bg-card: #FFFFFF;
   --color-bg-footer: #E5E9F0;
-  --color-primary: #004A8C; /* Azul oscuro (texto hidrofluid) */
-  --color-accent: #41A4FF; /* Azul claro */
-  --color-highlight: #1E71B8; /* Azul medio */
+  --color-primary: #003566; /* Azul profundo profesional */
+  --color-accent: #0077b6; /* Azul medio brillante */
+  --color-highlight: #0096c7; /* Azul claro para realces */
   --color-white: #FFFFFF;
-  --color-gray: #9AA3AE;
+  --color-gray: #707070;
   --color-border: rgba(0, 74, 140, 0.1);
   --color-whatsapp: #25D366;
 }

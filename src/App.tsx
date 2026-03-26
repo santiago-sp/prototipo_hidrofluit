@@ -30,55 +30,16 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-// --- Types ---
-interface Product {
-  name: string;
-  brand: string;
-  desc: string;
-  category: string;
-}
-
 // --- Data ---
 const BRANDS = [
-  'KÄRCHER', 'WEG', 'SIEMENS', 'SNAP-ON', 'CHICAGO PNEUMATIC', 
-  'DELCROSA', 'MOTOVARIO', 'SACAMI', 'STM', 'SITI'
-];
-const PRODUCTS: Product[] = [
-  // MOTORES ELÉCTRICOS
-  { name: 'Motores Trifásicos WEG', brand: 'WEG', desc: 'Motores de alta eficiencia para aplicaciones industriales pesadas.', category: 'Motores Eléctricos' },
-  { name: 'Motores Monofásicos', brand: 'Siemens / Delcrosa', desc: 'Soluciones confiables para equipos menores y talleres.', category: 'Motores Eléctricos' },
-  // EQUIPOS DE LEVANTE
-  { name: 'Plumas Hidráulicas', brand: 'Snap-on · Chicago Pneumatic', desc: 'Equipos de alta resistencia para izaje de motores.', category: 'Equipos de Levante' },
-  { name: 'Gatos de Transmisión', brand: 'Tipo botella y lagarto', desc: 'Soporte robusto para transmisiones y cajas.', category: 'Equipos de Levante' },
-  // LAVADO Y LIMPIEZA
-  { name: 'Hidrolavadoras Kärcher HD', brand: 'Kärcher', desc: 'Limpieza profunda con tecnología alemana de alta presión.', category: 'Lavado y Limpieza' },
-  { name: 'Aspiradoras Industriales', brand: 'Kärcher', desc: 'Equipos de succión potente para sólidos y líquidos.', category: 'Lavado y Limpieza' },
-  // CARROCERÍA
-  { name: 'Sistemas de Lijado', brand: 'Mirka / 3M', desc: 'Equipos neumáticos y eléctricos para acabado de superficies.', category: 'Carrocería' },
-  // ALMACENAJE
-  { name: 'Gabinetes Porta Herramientas', brand: 'Snap-on', desc: 'Organización profesional y seguridad para su taller.', category: 'Almacenaje' },
-  // ENGRASE Y LUBRICACIÓN
-  { name: 'Bombas de Engrase Neumáticas', brand: 'Groeneveld', desc: 'Sistemas automáticos y manuales de lubricación.', category: 'Engrase y Lubricación' },
-  // TORQUE E IZAJE
-  { name: 'Torquímetros de Precisión', brand: 'Snap-on', desc: 'Herramientas de ajuste crítico con certificación.', category: 'Torque e Izaje' },
-  // HERRAMIENTAS NEUMÁTICAS
-  { name: 'Llaves de Impacto', brand: 'Chicago Pneumatic', desc: 'Potencia y durabilidad para trabajos exigentes.', category: 'Herramientas Neumáticas' },
-  // SOLDADURA
-  { name: 'Máquinas de Soldar Inverter', brand: 'Miller / Lincoln', desc: 'Equipos compactos de alta tecnología para soldadura.', category: 'Soldadura' },
-];
-
-const CATEGORIES = [
-  'Todos', 'Motores Eléctricos', 'Equipos de Levante', 'Lavado y Limpieza', 
-  'Carrocería', 'Almacenaje', 'Engrase y Lubricación', 'Torque e Izaje', 
-  'Herramientas Neumáticas', 'Soldadura'
+  'KÄRCHER', 'WEG', 'MOTOVARIO', 'DELCROSA', 'SACAMI', 'STM TEAM', 'SITI', 'SIEMENS', 'SNAP-ON', 'CHICAGO PNEUMATIC'
 ];
 
 const ADVANTAGES = [
-  { icon: <Clock size={24} />, title: 'Experiencia Técnica', desc: 'Más de 10 años brindando soluciones especializadas a la industria peruana.' },
-  { icon: <ShieldCheck size={24} />, title: 'Marcas Líderes', desc: 'Trabajamos con repuestos originales y equipos de las mejores marcas mundiales.' },
-  { icon: <Wrench size={24} />, title: 'Garantía Real', desc: 'Todos nuestros servicios y equipos cuentan con respaldo técnico post-venta garantizado.' },
-  { icon: <UserCheck size={24} />, title: 'Atención Especializada', desc: 'Técnicos certificados que brindan diagnósticos precisos y soluciones eficientes.' },
-  { icon: <Settings size={24} />, title: 'Equipamiento Moderno', desc: 'Contamos con herramientas de última generación para diagnósticos y reparaciones.' }
+  { icon: <ShieldCheck size={24} />, title: 'Calidad Kärcher', desc: 'Especialistas certificados en el mantenimiento de equipos de limpieza industrial Kärcher y marcas líderes.' },
+  { icon: <Zap size={24} />, title: 'Eficiencia Operativa', desc: 'Trabajamos bajo un espíritu de compromiso para exceder las expectativas y garantizar su satisfacción total.' },
+  { icon: <Clock size={24} />, title: 'Disponibilidad 24h', desc: 'Soporte técnico y mantenimiento preventivo/correctivo para garantizar la continuidad de sus operaciones.' },
+  { icon: <Settings size={24} />, title: 'Equipamiento Especializado', desc: 'Mantenimiento de hidrolavadoras, motores eléctricos, bombas y equipos de alta presión en Lima.' }
 ];
 
 const EQUIPMENT_TYPES = [
@@ -115,7 +76,7 @@ const PROJECTS_DATA = [
     client: 'Taller Mecánico Autorizado',
     desc: 'Certificación y mantenimiento preventivo de elevadores de 4 columnas y plumas hidráulicas.',
     equipment: ['Elevadores de 4 columnas', 'Plumas hidráulicas', 'Gatos de fosa'],
-    image: 'https://images.unsplash.com/photo-1530046339160-ce3e5b0c7a2f?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1621905285851-66b6bc94c0e9?auto=format&fit=crop&q=80&w=800'
   },
   {
     title: 'Suministro de Herramientas Neumáticas',
@@ -157,15 +118,11 @@ const SectionTitle = ({ children, highlight }: { children: string, highlight?: s
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('Todos');
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(3);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS_DATA[0] | null>(null);
   const [projectCarouselIndex, setProjectCarouselIndex] = useState(0);
-
-  const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('productos.html');
 
   useEffect(() => {
     const handleResize = () => {
@@ -210,9 +167,7 @@ export default function App() {
     setIsMenuOpen(false);
   };
 
-  const filteredProducts = activeTab === 'Todos' 
-    ? PRODUCTS 
-    : PRODUCTS.filter(p => p.category === activeTab);
+
 
   return (
     <div className="min-h-screen bg-bg selection:bg-accent selection:text-white font-sans">
@@ -232,13 +187,12 @@ export default function App() {
               {[
                 { name: 'INICIO', href: 'index.html#inicio' },
                 { name: 'SERVICIOS', href: 'index.html#servicios' },
-                { name: 'PRODUCTOS', href: 'productos.html' },
                 { name: 'NOSOTROS', href: 'index.html#nosotros' },
                 { name: 'CONTACTO', href: 'index.html#contacto' }
               ].map((item) => (
                 <a
                   key={item.name}
-                  href={item.name === 'PRODUCTOS' && window.location.pathname.includes('productos.html') ? '#' : item.href}
+                  href={item.href}
                   onClick={(e) => {
                     if (item.href.startsWith('index.html#')) {
                       if (window.location.pathname.includes('productos.html')) {
@@ -249,7 +203,7 @@ export default function App() {
                       }
                     }
                   }}
-                  className={`text-[13px] font-medium uppercase tracking-[0.06em] transition-colors ${item.name === 'PRODUCTOS' && isProductsPage ? 'text-accent' : (scrolled ? 'text-primary hover:text-highlight' : 'text-white hover:text-white/80')}`}
+                  className={`text-[13px] font-medium uppercase tracking-[0.06em] transition-colors ${scrolled ? 'text-primary hover:text-highlight' : 'text-white hover:text-white/80'}`}
                 >
                   {item.name}
                 </a>
@@ -286,7 +240,6 @@ export default function App() {
                 {[
                   { name: 'INICIO', href: 'index.html#inicio' },
                   { name: 'SERVICIOS', href: 'index.html#servicios' },
-                  { name: 'PRODUCTOS', href: 'productos.html' },
                   { name: 'NOSOTROS', href: 'index.html#nosotros' },
                   { name: 'CONTACTO', href: 'index.html#contacto' }
                 ].map((item) => (
@@ -299,7 +252,7 @@ export default function App() {
                         scrollToSection(item.href.split('#')[1]);
                       }
                     }}
-                    className={`text-[18px] font-semibold text-left ${item.name === 'PRODUCTOS' && isProductsPage ? 'text-accent' : 'text-primary'}`}
+                    className={`text-[18px] font-semibold text-left text-primary`}
                   >
                     {item.name}
                   </a>
@@ -317,101 +270,90 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      {!isProductsPage && (
-        <section id="inicio" className="relative min-h-screen flex items-center pt-[160px] pb-20 overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <img 
-              src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1920" 
-              alt="Mantenimiento Industrial" 
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#001c36]/95 via-[#001c36]/80 to-transparent"></div>
-          </div>
+      <section id="inicio" className="relative min-h-screen flex items-center pt-[160px] pb-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1920" 
+            alt="Mantenimiento Industrial" 
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#001c36]/95 via-[#001c36]/80 to-transparent"></div>
+        </div>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-            <div className="max-w-[700px] space-y-8">
-              <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-accent/12 border border-accent/30 text-accent text-[13px] font-medium tracking-wide">
-                Empresa técnica industrial · Lima, Perú
-              </div>
-              
-              <h1 className="text-[38px] md:text-[64px] font-extrabold !text-white leading-[1.1] tracking-tight">
-                Equipos industriales y mantenimiento <span className="text-highlight">especializado</span>
-              </h1>
-              
-              <p className="text-[17px] text-gray font-normal leading-[1.7]">
-                Especialistas en mantenimiento, reparación y venta de equipos de alta presión, motores y sistemas de bombeo en Lima.
-              </p>
-
-              <div className="space-y-3">
-                {[
-                  'Servicio Técnico Multimarca',
-                  'Atención Especializada a Industrias',
-                  'Garantía y Respaldo Técnico'
-                ].map((bullet, i) => (
-                  <div key={i} className="flex items-center gap-3 !text-white text-[14px] font-normal">
-                    <Check size={16} className="text-accent" />
-                    {bullet}
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <a 
-                  href="productos.html"
-                  className="inline-flex items-center justify-center bg-primary hover:bg-accent text-white px-8 py-3.5 rounded-full text-[14px] font-bold uppercase tracking-[0.04em] transition-all duration-300"
-                >
-                  VER PRODUCTOS
-                </a>
-                <a 
-                  href="https://wa.me/51946897942?text=Hola%20necesito%20cotizar"
-                  className="inline-flex items-center justify-center bg-transparent border border-white/30 hover:border-white text-white px-8 py-3.5 rounded-full text-[14px] font-bold uppercase tracking-[0.04em] transition-all duration-300"
-                >
-                  SOLICITAR COTIZACIÓN
-                </a>
-              </div>
-
-              <div className="flex items-center gap-2 pt-6">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} className="fill-accent text-accent" />
-                  ))}
-                </div>
-                <span className="text-[13px] text-gray font-medium">Más de 10 años de trayectoria técnica</span>
-              </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+          <div className="max-w-[700px] space-y-8">
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-accent/12 border border-accent/30 text-accent text-[13px] font-medium tracking-wide">
+              Empresa técnica industrial · Lima, Perú
             </div>
-          </div>
-          
-          {/* Transition Gradient */}
-          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-bg to-transparent pointer-events-none"></div>
-        </section>
-      )}
+            
+            <h1 className="text-[38px] md:text-[64px] font-extrabold !text-white leading-[1.1] tracking-tight">
+              Especialistas en Mantenimiento y Servicio Técnico <span className="text-highlight">Industrial</span>
+            </h1>
+            
+            <p className="text-[17px] text-gray font-normal leading-[1.7]">
+              Soluciones integrales en reparación y venta de equipos de alta presión, motores eléctricos y sistemas de bombeo industrial en Lima.
+            </p>
 
-      {/* Marquee Section */}
-      {!isProductsPage && (
-        <section className="py-6 bg-bg-card border-y border-border overflow-hidden relative">
-          <div className="max-w-7xl mx-auto px-4 mb-4 text-center">
-            <span className="text-[12px] text-gray font-medium uppercase tracking-[0.15em]">MARCAS QUE NOS RESPALDAN</span>
-          </div>
-          <div className="relative flex overflow-x-hidden">
-            <div className="animate-marquee whitespace-nowrap flex items-center gap-12">
-              {[...BRANDS, ...BRANDS].map((brand, i) => (
-                <React.Fragment key={i}>
-                  <span className="text-[15px] font-semibold text-primary opacity-50 uppercase tracking-wider">
-                    {brand}
-                  </span>
-                  {i < BRANDS.length * 2 - 1 && <span className="text-primary opacity-30">·</span>}
-                </React.Fragment>
+            <div className="space-y-3">
+              {[
+                'Servicio Técnico Multimarca',
+                'Atención Especializada a Industrias',
+                'Garantía y Respaldo Técnico'
+              ].map((bullet, i) => (
+                <div key={i} className="flex items-center gap-3 !text-white text-[14px] font-normal">
+                  <Check size={16} className="text-accent" />
+                  {bullet}
+                </div>
               ))}
             </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <a 
+                href="https://wa.me/51946897942?text=Hola%20necesito%20cotizar"
+                className="inline-flex items-center justify-center bg-primary hover:bg-accent text-white px-8 py-3.5 rounded-full text-[14px] font-bold uppercase tracking-[0.04em] transition-all duration-300"
+              >
+                SOLICITAR COTIZACIÓN
+              </a>
+            </div>
+
+            <div className="flex items-center gap-2 pt-6">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={14} className="fill-accent text-accent" />
+                ))}
+              </div>
+              <span className="text-[13px] text-gray font-medium">Más de 10 años de trayectoria técnica</span>
+            </div>
           </div>
-        </section>
-      )}
+        </div>
+        
+        {/* Transition Gradient */}
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-bg to-transparent pointer-events-none"></div>
+      </section>
+
+      {/* Marquee Section */}
+      <section className="py-6 bg-bg-card border-y border-border overflow-hidden relative">
+        <div className="max-w-7xl mx-auto px-4 mb-4 text-center">
+          <span className="text-[12px] text-gray font-medium uppercase tracking-[0.15em]">MARCAS QUE NOS RESPALDAN</span>
+        </div>
+        <div className="relative flex overflow-x-hidden">
+          <div className="animate-marquee whitespace-nowrap flex items-center gap-12">
+            {[...BRANDS, ...BRANDS].map((brand, i) => (
+              <React.Fragment key={i}>
+                <span className="text-[15px] font-semibold text-primary opacity-50 uppercase tracking-wider">
+                  {brand}
+                </span>
+                {i < BRANDS.length * 2 - 1 && <span className="text-primary opacity-30">·</span>}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Why Choose Us Section */}
-      {!isProductsPage && (
-        <section id="ventajas" className="py-24 bg-bg relative overflow-hidden">
+      <section id="ventajas" className="py-24 bg-bg relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionLabel>NUESTRAS VENTAJAS</SectionLabel>
@@ -476,116 +418,63 @@ export default function App() {
               </div>
             </div>
           </div>
-        </section>
-      )}
+      </section>
 
       {/* Services Section */}
-      {!isProductsPage && (
-        <section id="servicios" className="py-24 bg-bg-card relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <SectionLabel>LO QUE HACEMOS</SectionLabel>
-              <SectionTitle highlight="Servicios">Nuestros Servicios</SectionTitle>
-              <p className="text-[16px] text-gray font-normal max-w-2xl mx-auto">
-                Soluciones integrales para la industria, desde el mantenimiento especializado hasta el suministro de equipos.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                { 
-                  icon: <Wrench size={24} />, 
-                  title: 'Mantenimiento y Reparación', 
-                  desc: 'Servicio técnico especializado para hidrolavadoras, motores, bombas y herramientas industriales con repuestos originales.',
-                  link: 'https://wa.me/51946897942?text=Hola%20necesito%20mantenimiento%20y%20reparación'
-                },
-                { 
-                  icon: <Settings size={24} />, 
-                  title: 'Alquiler de Máquinas y Herramientas', 
-                  desc: 'Disponemos de una flota de equipos de alta presión y herramientas para trabajos temporales o de emergencia.',
-                  link: 'https://wa.me/51946897942?text=Hola%20necesito%20alquilar%20equipos'
-                },
-                { 
-                  icon: <Droplets size={24} />, 
-                  title: 'Reposición de Stock', 
-                  desc: 'Venta directa de equipos nuevos, repuestos y consumibles industriales de las mejores marcas del mercado.',
-                  link: 'https://wa.me/51946897942?text=Hola%20necesito%20comprar%20repuestos%20o%20equipos'
-                }
-              ].map((service, i) => (
-                <motion.div 
-                  key={i}
-                  whileHover={{ y: -4 }}
-                  className="bg-bg-card p-8 rounded-xl shadow-md border border-gray/10 border-l-[4px] border-l-accent hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center text-accent mb-6">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-[18px] font-semibold text-primary mb-4">{service.title}</h3>
-                  <p className="text-[15px] text-gray font-normal leading-[1.7] mb-6">{service.desc}</p>
-                  <a href={service.link} className="inline-flex items-center text-[14px] font-medium text-accent hover:underline">
-                    Solicitar información <ChevronRight size={14} className="ml-1" />
-                  </a>
-                </motion.div>
-              ))}
-            </div>
+      <section id="servicios" className="py-24 bg-bg-card relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <SectionLabel>LO QUE HACEMOS</SectionLabel>
+            <SectionTitle highlight="Servicios">Nuestros Servicios</SectionTitle>
+            <p className="text-[16px] text-gray font-normal max-w-2xl mx-auto">
+              Soluciones integrales para la industria, desde el mantenimiento especializado hasta el suministro de equipos.
+            </p>
           </div>
-        </section>
-      )}
 
-      {/* Products Section */}
-      {!isProductsPage && (
-        <section id="productos" className="py-24 bg-bg relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-              <div className="text-left">
-                <SectionLabel>NUESTROS EQUIPOS</SectionLabel>
-                <SectionTitle highlight="Destacados">Productos Destacados</SectionTitle>
-                <p className="text-[16px] text-gray font-normal max-w-2xl">
-                  También ofrecemos equipos y herramientas industriales de marcas reconocidas para complementar las necesidades de mantenimiento de nuestros clientes.
-                </p>
-              </div>
-              <a 
-                href="productos.html"
-                className="inline-flex items-center gap-2 px-6 py-2.5 border border-accent text-accent rounded-full text-[14px] font-bold hover:bg-primary hover:text-accent transition-all duration-300"
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { 
+                icon: <Wrench size={24} />, 
+                title: 'Mantenimiento y Reparación', 
+                desc: 'Servicio técnico especializado para hidrolavadoras, motores, bombas y herramientas industriales con repuestos originales.',
+                link: 'https://wa.me/51946897942?text=Hola%20necesito%20mantenimiento%20y%20reparación'
+              },
+              { 
+                icon: <Settings size={24} />, 
+                title: 'Alquiler de Máquinas y Herramientas', 
+                desc: 'Disponemos de una flota de equipos de alta presión y herramientas para trabajos temporales o de emergencia.',
+                link: 'https://wa.me/51946897942?text=Hola%20necesito%20alquilar%20equipos'
+              },
+              { 
+                icon: <Droplets size={24} />, 
+                title: 'Reposición de Stock', 
+                desc: 'Venta directa de equipos nuevos, repuestos y consumibles industriales de las mejores marcas del mercado.',
+                link: 'https://wa.me/51946897942?text=Hola%20necesito%20comprar%20repuestos%20o%20equipos'
+              }
+            ].map((service, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -4 }}
+                className="bg-bg-card p-8 rounded-xl shadow-md border border-gray/10 border-l-[4px] border-l-accent hover:shadow-xl transition-all duration-300"
               >
-                Ver Catálogo Completo <ChevronRight size={18} />
-              </a>
-            </div>
-
-            {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {PRODUCTS.slice(0, 6).map((product, i) => (
-                <motion.div 
-                  key={product.name}
-                  whileHover={{ y: -4 }}
-                  className="bg-bg-card rounded-xl overflow-hidden shadow-lg hover:shadow-2xl border border-gray/10 transition-all group"
-                >
-                  <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800')] bg-cover bg-center opacity-10 group-hover:scale-110 transition-transform duration-700"></div>
-                    <Settings size={48} className="text-primary opacity-20 group-hover:scale-110 transition-transform duration-500 relative z-10" />
-                  </div>
-                  <div className="p-6 space-y-4">
-                    <div>
-                      <span className="text-[13px] font-bold text-accent uppercase tracking-widest">{product.brand}</span>
-                      <h3 className="text-[16px] font-semibold text-primary mt-1">{product.name}</h3>
-                      <p className="text-[14px] text-gray font-normal mt-2">{product.desc}</p>
-                    </div>
-                    <a 
-                      href="https://wa.me/51946897942"
-                      className="block w-full bg-primary hover:bg-accent text-white text-center py-3 rounded-lg text-[13px] font-bold uppercase tracking-wider transition-all"
-                    >
-                      Consultar Precio
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center text-accent mb-6">
+                  {service.icon}
+                </div>
+                <h3 className="text-[18px] font-semibold text-primary mb-4">{service.title}</h3>
+                <p className="text-[15px] text-gray font-normal leading-[1.7] mb-6">{service.desc}</p>
+                <a href={service.link} className="inline-flex items-center text-[14px] font-medium text-accent hover:underline">
+                  Solicitar información <ChevronRight size={14} className="ml-1" />
+                </a>
+              </motion.div>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+
+
 
       {/* Gallery Section (Proyectos Realizados) */}
-      {!isProductsPage && (
+
         <section id="proyectos" className="py-24 bg-bg-card relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -736,193 +625,84 @@ export default function App() {
                 </motion.div>
               </div>
             )}
-          </AnimatePresence>
-        </section>
-      )}
+        </AnimatePresence>
+      </section>
 
       {/* Stats Section */}
-      {!isProductsPage && (
-        <section className="py-16 bg-gradient-to-br from-primary to-highlight relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid md:grid-cols-3 gap-12 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-white/10">
-              {[
-                { num: '10', label: 'AÑOS DE EXPERIENCIA' },
-                { num: '500', label: 'CLIENTES ATENDIDOS' },
-                { num: '1500', label: 'EQUIPOS REPARADOS' }
-              ].map((stat, i) => (
-                <div key={i} className="text-center px-8">
-                  <div className="text-[52px] font-extrabold text-white leading-none mb-2">
-                    {stat.num}<span className="text-accent">+</span>
-                  </div>
-                  <div className="text-[12px] text-white/80 uppercase tracking-[0.15em] font-medium">{stat.label}</div>
+      <section className="py-16 bg-gradient-to-br from-primary to-highlight relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid md:grid-cols-3 gap-12 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-white/10">
+            {[
+              { num: '10', label: 'AÑOS DE EXPERIENCIA' },
+              { num: '500', label: 'CLIENTES ATENDIDOS' },
+              { num: '1500', label: 'EQUIPOS REPARADOS' }
+            ].map((stat, i) => (
+              <div key={i} className="text-center px-8">
+                <div className="text-[52px] font-extrabold text-white leading-none mb-2">
+                  {stat.num}<span className="text-accent">+</span>
                 </div>
-              ))}
-            </div>
+                <div className="text-[12px] text-white/80 uppercase tracking-[0.15em] font-medium">{stat.label}</div>
+              </div>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Nosotros (Filosofía, Misión, Visión) Section */}
-      {!isProductsPage && (
-        <section id="nosotros" className="py-24 bg-bg relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-3 gap-12">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center text-accent">
-                  <Star size={24} />
-                </div>
-                <h3 className="text-[24px] font-bold text-primary">Nuestra Filosofía</h3>
-                <p className="text-gray text-[15px] leading-relaxed">
-                  En HIDROFLUID SERVICE S.A.C., nuestra filosofía se basa en la excelencia técnica y el compromiso inquebrantable con la calidad. Creemos que cada equipo que intervenimos es vital para la productividad de nuestros clientes, por lo que aplicamos precisión y ética en cada servicio.
-                </p>
-              </motion.div>
-
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="space-y-6"
-              >
-                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center text-accent">
-                  <Zap size={24} />
-                </div>
-                <h3 className="text-[24px] font-bold text-primary">Nuestra Misión</h3>
-                <p className="text-gray text-[15px] leading-relaxed">
-                  Brindar soluciones integrales de mantenimiento y suministro de equipos industriales de alta calidad, superando las expectativas de nuestros clientes mediante un servicio técnico especializado, eficiente y oportuno que garantice la continuidad de sus operaciones.
-                </p>
-              </motion.div>
-
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="space-y-6"
-              >
-                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center text-accent">
-                  <ImageIcon size={24} />
-                </div>
-                <h3 className="text-[24px] font-bold text-primary">Nuestra Visión</h3>
-                <p className="text-gray text-[15px] leading-relaxed">
-                  Consolidarnos como la empresa líder en el sector técnico industrial a nivel nacional, siendo reconocidos por nuestra innovación, confiabilidad y por ser el socio estratégico preferido de las principales industrias del país en soluciones de fluidos y potencia.
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Catálogo Completo Section */}
-      {isProductsPage && (
-        <section id="catalogo" className="py-24 bg-bg relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <SectionLabel>LISTADO DE EQUIPOS</SectionLabel>
-              <SectionTitle highlight="Completo">Catálogo Completo</SectionTitle>
-              <p className="text-[16px] text-gray font-normal max-w-2xl mx-auto mt-4">
-                Explore nuestra amplia gama de equipos y herramientas industriales de las mejores marcas.
-              </p>
-            </div>
-
-            <div className="flex flex-col lg:flex-row gap-12">
-              {/* Sidebar Filter */}
-              <aside className="lg:w-1/4">
-                <div className="sticky top-[100px] space-y-6">
-                  <h4 className="text-primary font-bold text-[16px] mb-6 hidden lg:block">Categorías</h4>
-                  
-                  {/* Mobile Dropdown */}
-                  <div className="lg:hidden relative mb-8">
-                    <button 
-                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      className="flex items-center justify-between w-full bg-bg-card border border-gray/30 text-primary px-5 py-3 rounded-lg text-[14px] font-medium"
-                    >
-                      {activeTab === 'Todos' ? 'Todas las categorías' : activeTab}
-                      <ChevronDown size={18} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`} />
-                    </button>
-                    <AnimatePresence>
-                      {isDropdownOpen && (
-                        <motion.div 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          className="absolute top-full left-0 mt-2 w-full bg-bg-card border border-gray/30 rounded-lg shadow-2xl z-50 overflow-hidden"
-                        >
-                          {CATEGORIES.map((cat) => (
-                            <button
-                              key={cat}
-                              onClick={() => {
-                                setActiveTab(cat);
-                                setIsDropdownOpen(false);
-                              }}
-                              className={`w-full text-left px-5 py-3 text-[14px] transition-colors hover:bg-accent/10 ${activeTab === cat ? 'text-accent font-bold' : 'text-gray'}`}
-                            >
-                              {cat}
-                            </button>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Desktop List */}
-                  <div className="hidden lg:flex flex-col gap-2">
-                    {CATEGORIES.map((cat) => (
-                      <button
-                        key={cat}
-                        onClick={() => setActiveTab(cat)}
-                        className={`text-left px-4 py-3 rounded-lg text-[14px] transition-all duration-300 ${activeTab === cat ? 'bg-primary text-white font-bold shadow-lg' : 'text-gray hover:bg-white/5'}`}
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </aside>
-
-              {/* Grid */}
-              <div className="lg:w-3/4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <AnimatePresence mode="popLayout">
-                    {filteredProducts.map((product) => (
-                      <motion.div 
-                        key={product.name}
-                        layout
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.3 }}
-                        className="bg-bg-card rounded-xl overflow-hidden border border-gray/20 group"
-                      >
-                        <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
-                          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800')] bg-cover bg-center opacity-10 group-hover:scale-110 transition-transform duration-700"></div>
-                          <Settings size={40} className="text-accent/50 relative z-10" />
-                        </div>
-                        <div className="p-6">
-                          <span className="text-[12px] font-bold text-accent uppercase tracking-widest">{product.brand}</span>
-                          <h3 className="text-[16px] font-semibold text-primary mt-1">{product.name}</h3>
-                          <p className="text-[14px] text-gray font-normal mt-2 mb-6">{product.desc}</p>
-                          <a 
-                            href="https://wa.me/51946897942"
-                            className="block w-full bg-primary hover:bg-accent text-white text-center py-2.5 rounded-lg text-[13px] font-bold uppercase tracking-wider transition-all"
-                          >
-                            Consultar Precio
-                          </a>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </div>
+      <section id="nosotros" className="py-24 bg-bg relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-3 gap-12">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center text-accent">
+                <Star size={24} />
               </div>
-            </div>
+              <h3 className="text-[24px] font-bold text-primary">Nuestra Filosofía</h3>
+              <p className="text-gray text-[15px] leading-relaxed">
+                En HIDROFLUID SERVICE S.A.C., nuestra filosofía se basa en trabajar bajo un espíritu de compromiso, eficiencia y excelencia que nos permita exceder las expectativas de nuestros clientes y garantizar su satisfacción total.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="space-y-6"
+            >
+              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center text-accent">
+                <Zap size={24} />
+              </div>
+              <h3 className="text-[24px] font-bold text-primary">Nuestra Misión</h3>
+              <p className="text-gray text-[15px] leading-relaxed">
+                Ser líderes en la importación y distribución de productos de alta calidad y solucionar las necesidades de nuestros clientes mediante un soporte técnico especializado, eficiente y oportuno que garantice la continuidad de sus operaciones.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center text-accent">
+                <ImageIcon size={24} />
+              </div>
+              <h3 className="text-[24px] font-bold text-primary">Nuestra Visión</h3>
+              <p className="text-gray text-[15px] leading-relaxed">
+                Mantener un sólido posicionamiento y liderazgo brindando oportunidades de negocios a nuestros clientes en sus mercados, a través de la competitividad y excelencia técnica constante en el sector industrial.
+              </p>
+            </motion.div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+
+
 
       {/* Contact Section */}
       <section id="contacto" className="py-24 bg-bg relative">
@@ -1031,7 +811,6 @@ export default function App() {
                 {[
                   { name: 'Inicio', href: 'index.html#inicio' },
                   { name: 'Servicios', href: 'index.html#servicios' },
-                  { name: 'Productos', href: 'productos.html' },
                   { name: 'Nosotros', href: 'index.html#nosotros' },
                   { name: 'Contacto', href: 'index.html#contacto' }
                 ].map((item) => (
@@ -1039,7 +818,7 @@ export default function App() {
                     <a 
                       href={item.href}
                       onClick={(e) => {
-                        if (item.href.startsWith('index.html#') && !window.location.pathname.includes('productos.html')) {
+                        if (item.href.startsWith('index.html#')) {
                           e.preventDefault();
                           scrollToSection(item.href.split('#')[1]);
                         }
